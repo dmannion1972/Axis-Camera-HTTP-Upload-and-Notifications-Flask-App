@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Uploaded Images</title>
+    <script>
+        window.onload = function() {
+            // Get the images that need to be refreshed
+            const images = document.querySelectorAll(".refresh-image");
+            
+            // Refresh function
+            function refreshImage(img, src) {
+                img.src = src + "?t=" + new Date().getTime();
+            }
+            
+            // Set an interval to refresh the images every 3 seconds
+            setInterval(function() {
+                images.forEach(img => {
+                    refreshImage(img, img.getAttribute("data-src"));
+                });
+            }, 3000);
+        };
+    </script>
+</head>
+
+<body>
+    {% for img_name in image_names %}
+        <!-- Add a data-src attribute to hold the original source and class to identify the images -->
+        <img data-src="{{ url_for('static', filename='uploads/' + img_name) }}" src="{{ url_for('static', filename='uploads/' + img_name) }}" class="refresh-image" alt="Uploaded Image" width="1080">
+    {% endfor %}
+</body>
+
+</html>
+
+
