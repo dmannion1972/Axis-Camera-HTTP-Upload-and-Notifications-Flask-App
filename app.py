@@ -22,8 +22,8 @@ class ImageUploadHandler(http.server.SimpleHTTPRequestHandler):
             content_length = int(self.headers['Content-Length'])
             image_data = self.rfile.read(content_length)
 
-            # Generate a unique filename based on timestamp
-            filename = os.path.join(UPLOAD_DIR, f'image_{int(time.time())}.jpg')
+            # Save the image with a constant filename
+            filename = os.path.join(UPLOAD_DIR, 'current_image.jpg')
             
             with open(filename, 'wb') as img_file:
                 img_file.write(image_data)
@@ -80,3 +80,4 @@ if __name__ == '__main__':
 
     # Start Flask app in the main thread
     app.run(host='0.0.0.0', port=5001)
+
